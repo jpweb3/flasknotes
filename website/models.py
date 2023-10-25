@@ -2,6 +2,10 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField,SubmitField, BooleanField, IntegerField, DecimalField
+from wtforms.validators import DataRequired, EqualTo, Email
+
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,3 +20,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')
+
+class StockForm(FlaskForm):
+    ticker = StringField('Ticker', validators=[DataRequired()])
+    submit= SubmitField('Search')
